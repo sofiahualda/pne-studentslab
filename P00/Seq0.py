@@ -20,8 +20,22 @@ def seq_len(seq):
 def seq_count_base(seq, base):
     genes = ["ADA", "U5", "FRAT1", "FXN"]
     bases = ["A", "T", "C", "G"]
-    for i in genes:
-    for b in bases:
-        f = SEQUENCES + g + (".txt")
-        bases = seq.read(f)
-        total  = seq.read(bases, b)
+    for g in genes:
+        for b in bases:
+            f = seq + g + (".txt")
+            bases = seq.read(f)
+            total = seq.read(bases, b)
+    for g in genes:
+        FOLDER = "../sequences/"
+        FILENAME = seq + ".txt"
+        file_contents = Path(FOLDER + FILENAME).read_text()
+        index = file_contents.find("\n")
+        list_contents = (file_contents[index:]).replace("\n", "")
+
+
+
+
+
+
+
+
