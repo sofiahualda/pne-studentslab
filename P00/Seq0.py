@@ -7,7 +7,6 @@ BASES_COMPLEMENT = {"A": "T", "T": "A", "C": "G", "G": "C"}
 def seq_ping():
     print("OK")
 
-
 def seq_read_fasta(filename):
     file_content = Path(filename).read_text()
     lines = file_content.splitlines()
