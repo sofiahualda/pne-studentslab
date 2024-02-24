@@ -6,6 +6,10 @@ class Seq:
         return self.strbases
     def len(self):
         return len(self.strbases)
+    def show(self):
+        print(f"Indexes: {self.strbases}\n")
+
+
 
 
 class Gene:
@@ -16,5 +20,3 @@ class Gene:
 
     def __str__(self):
         return self.name + "-" + self.strbases
-
-
