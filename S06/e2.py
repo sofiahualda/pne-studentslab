@@ -5,7 +5,7 @@ def print_seqs(seq_list):
     for list in seq_list:
         print(f"Sequence: ", i)
         print(f"Length: {Seq.len(list)}")
-        print(f"Indexes: {Seq.show(list)}")
+        print(f"Indexes: {Seq.show(list)}\n")
         i += 1
 
 

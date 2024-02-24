@@ -21,9 +21,9 @@ class Seq:
         print(f"Indexes: {self.strbases}\n")
 
 
-s1 = Seq("ACTGGTACTGAC")
+s1 = Seq("AGATACGTACGT")
 check_s1 = s1.check_seq()
-s2 = Seq("hi")
+s2 = Seq("567ujh")
 check_s2 = s2.check_seq()
 print(f"Sequence 1: {check_s1}\nSequence 2: {check_s2}")
 

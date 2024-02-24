@@ -4,10 +4,18 @@ class Seq:
         print("New sequence is created!")
     def __str__(self):
         return self.strbases
+    def check_seq(self):
+        for i in self.strbases:
+            if i == "A" or i == "C" or i == "T" or i == "G":
+                return self.strbases
+            else:
+                text = "ERROR"
+                return text
     def len(self):
         return len(self.strbases)
     def show(self):
-        print(f"Indexes: {self.strbases}\n")
+        t = self.strbases
+        return t
 
 
 
