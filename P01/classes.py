@@ -1,30 +1,34 @@
-class Car:
-    def __init__(self, brand, speed = 0):    #how an object is born: init method (to move from class to object)
-        self.car_brand = brand          # self is a parameter of all methods, its the object itself
-        self.speed = speed
+class Seq:
+    def __init__(self, strbases=None):
+        self.strbases = strbases
 
-    def set_speed(self, speed):
-        self.speed = speed
+    def __str__(self):
+        return self.strbases
 
-    def get_brand_nationality(self):
-        if self.car_brand == "Renault":
-            return "France"
-        elif self.car_brand == "Ferrari":
-            return "Italy"
+    def check_seq(self):
+        if self.strbases == None:
+            print("Null sequence is created")
+            text1 = "NULL"
+            return text1
+        for i in self.strbases:
+            if i == "A" or i == "C" or i == "T" or i == "G":
+                print("New sequence is created!")
+                return self.strbases
+            else:
+                print("INVALID sequence!")
+                text2 = "ERROR"
+                return text2
 
-    def set_age(self, age):
-        self.age = age
+    def len(self):
+        return len(self.strbases)
 
-    def set_value(self, value):
-        self.value = value
+    def show(self):
+        t = self.strbases
+        return t
 
-mycar = Car("Renault", 30)
-mycar.set_speed(80)
-print(mycar.speed)
-
-print(mycar.get_brand_nationality())
-
-yourcar = Car("Ferrari")
-print(yourcar.speed)
+print("--- Exercise 2 | Practice 1 ---")
+s1 = Seq("ACTAGT")
+s2 = Seq()
+print(f"Sequence 1: {s1.check_seq()}\nSequence 2: {s2.check_seq()}")
 
 

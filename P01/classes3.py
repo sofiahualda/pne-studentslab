@@ -1,27 +1,26 @@
-class Vehicle:
-    def set_speef(slef, speed):
-        self.speed = speed
+class Seq:
+    def __init__(self, strbases):
+        self.strbases = strbases
+        print("New sequence is created!")
+    def __str__(self):
+        return self.strbases
+    def check_seq(self):
+        for i in self.strbases:
+            if i == "A" or i == "C" or i == "T" or i == "G":
+                return self.strbases
+            else:
+                text = "ERROR"
+                return text
+    def len(self):
+        return len(self.strbases)
+    def show(self):
+        t = self.strbases
+        return t
 
-class Car(Vehicle):
-    def __init__(self, bran, speed=0):
-        self.car_brand = brand
-        self.speed = speed
+print("---Exercise 1 | Practice 1 ---")
+sequence = Seq("ACTGA")
+print(f"Sequence 1: (Length: {Seq.len(sequence)}) {sequence}")
 
-class Ferrari(Car):
-    def __init__(self):
-        self.music = "classic"
-    def make_cabrio(self):
-        self.speed = 20
-        self.music = "loud"
-        return "Wow"
-
-mycar = Car("Renault")
-yourcar = Ferrari("Ferrari" )  # --> __init__
-print(yourcar.car_brand)
-yourcar.set_speed(20)
-print(yourcar.speed)
-
-print(yourcar.make_carbio(), "and music is", yourcar)
 
 
 

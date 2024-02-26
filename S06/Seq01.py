@@ -19,7 +19,6 @@ class Seq:
 
 
 
-
 class Gene:
     def __init__(self, strbases, name = ""):
         super().__init__(strbases)

@@ -1,19 +1,8 @@
-class Car:
-    def __init__(self, brand, speed=0):
-        self.car_brand = brand
-        self.speed = speed
+from classes import Seq
 
-    def set_speed(self, speed):
-        self.speed = speed
-
-class Ferrari(Car):
-    pass
-
-mycar = Car("Renault")
-yourcar = Ferrari("Ferrari")
-print(yourcar.car_brand)
-yourcar.set_speed(120)
-print(yourcar.speed)
-
-
+s1 = Seq()
+s2 = Seq("ACGTA")
+s3 = Seq("ghjukdm")
+print("--- Exercise 3 | Practice 1 ---")
+print(f"Sequence 1 : {s1.check_seq()}\nSequence 2: {s2.check_seq()}\nSequence 3 : {s3.check_seq()}")
 
