@@ -18,7 +18,7 @@ print(yourcar.speed)
 
 
 
-#classes3.py
+#e1.py
 
 
 class Vehicle:
@@ -47,7 +47,7 @@ print(yourcar.speed)
 print(yourcar.make_carbio(), "and music is", yourcar)
 
 
-#classes.py
+#e2.py
 class Car:
     def __init__(self, brand, speed = 0):    #how an object is born: init method (to move from class to object)
         self.car_brand = brand          # self is a parameter of all methods, its the object itself

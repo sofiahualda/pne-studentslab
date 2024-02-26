@@ -20,15 +20,30 @@ class Seq:
                 return text2
 
     def len(self):
-        return len(self.strbases)
+        if self.strbases == None:
+            return 0
+        else:
+            return len(self.strbases)
+
 
     def show(self):
         t = self.strbases
         return t
 
-print("--- Exercise 2 | Practice 1 ---")
-s1 = Seq("ACTAGT")
-s2 = Seq()
-print(f"Sequence 1: {s1.check_seq()}\nSequence 2: {s2.check_seq()}")
+    def count_base(self, base):
+        self.base = base
+        if self.strbases == None or not base in self.strbases:
+            return 0
+        else:
+            return self.strbases.count(base)
 
-
+    def count(self):
+        d = {}
+        if self.strbases == None:
+            return 0
+        for base in self.strbases:
+            if base == "A" or base == "C" or base == "T" or base == "G":
+                d[base] = self.strbases.count(base)
+            if not base in self.strbases:
+                d[base] = 0
+        return d
