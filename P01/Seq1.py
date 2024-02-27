@@ -1,3 +1,4 @@
+from pathlib import Path
 def are_bases_ok(strbases):
     ok = True
     for c in strbases:
