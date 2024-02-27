@@ -52,9 +52,6 @@ class Seq:
                 d[key] = 0
         return d
 
-    def count(self):
-        bases_appearances = {}
-
 
     def reverse(self):
         if self.strbases == None:
