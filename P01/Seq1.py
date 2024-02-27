@@ -1,25 +1,31 @@
+def are_bases_ok(strbases):
+    ok = True
+    for c in strbases:
+        if c not in Seq.BASES:
+            ok = False
+            break
+    return ok
 from pathlib import Path
+
+
 class Seq:
-    def __init__(self, strbases=None):
-        self.strbases = strbases
+    BASES = ['A', 'C', 'G', 'T']
+    def __init__(self, strbases = None):
+        if strbases is None or len(strbases) == 0:     # con == no
+            self.strbases = "NULL"
+            print("NULL sequence created")
+        elif are_bases_ok(strbases):
+            self.strbases = strbases
+            print("New sequence created!")
+        else:
+            self.strbases = "ERROR"
+            print("INVALID sequence")
 
     def __str__(self):
         return self.strbases
 
-    def check_seq(self):
-        if self.strbases == None:
-            print("Null sequence is created")
-            return "NULL"
-        for i in self.strbases:
-            if i == "A" or i == "C" or i == "T" or i == "G":
-                print("New sequence is created!")
-                return self.strbases
-            else:
-                print("INVALID sequence!")
-                return "ERROR"
-
     def len(self):
-        if self.strbases == None:
+        if self.strbases is None:
             return 0
         else:
             for i in self.strbases:
@@ -30,7 +36,7 @@ class Seq:
 
     def count_base(self, base):
         self.base = base
-        if self.strbases == None or not base in self.strbases:
+        if self.strbases is None or base not in self.strbases:
             return 0
         else:
             return self.strbases.count(base)
