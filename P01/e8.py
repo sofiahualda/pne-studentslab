@@ -1,5 +1,5 @@
 from Seq1 import Seq
-print("\n--- Exercise 7 | Practice 1 ---\n")
+print("\n--- Exercise 8 | Practice 1 ---\n")
 s1 = Seq("AGCAGATAGCTGATCGT")
 s2 = Seq()
 s3 = Seq("Invalid sequence")
