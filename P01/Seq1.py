@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 def are_bases_ok(strbases):
     ok = True
@@ -26,7 +27,7 @@ class Seq:
         return self.strbases
 
     def len(self):
-        if self.strbases is None:
+        if self.strbases == None:
             return 0
         else:
             for i in self.strbases:
@@ -37,7 +38,7 @@ class Seq:
 
     def count_base(self, base):
         self.base = base
-        if self.strbases is None or base not in self.strbases:
+        if self.strbases == None or base not in self.strbases:
             return 0
         else:
             return self.strbases.count(base)
@@ -90,7 +91,20 @@ class Seq:
         body = lines[1:]
         dna_sequence = ""
         for line in body:
-            dna_sequence += line  
-        return dna_sequence
+            dna_sequence += line
+        self.strbases = dna_sequence
+
+    def max_base(self):
+        bases_list = ['A', 'C', 'G', 'T']
+        bases_d = {}
+        for b in bases_list:
+            bases_d[b] = self.count_base(b)
+        max_base = max(bases_d, key=bases_d.get)
+        return max_base
+
+
+
+
+
 
 
