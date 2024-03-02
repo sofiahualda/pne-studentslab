@@ -1,7 +1,7 @@
 import socket
 
 # Configure the Server's IP and PORT
-PORT = 8080
+PORT = 8081
 IP = "192.168.1.122" # it depends on the machine the server is running
 MAX_OPEN_REQUESTS = 5
 
@@ -44,6 +44,3 @@ except socket.error:
 except KeyboardInterrupt:
     print("Server stopped by the user")
     serversocket.close()
-
-
-
