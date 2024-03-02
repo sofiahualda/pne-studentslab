@@ -8,6 +8,7 @@ EXERCISE = 4
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 IP = "212.128.255.64"
 PORT = 8081
+print(f"Connection to SERVER at {IP}, PORT: {PORT}")
 c = Client(IP, PORT)
 s = Seq()
 GENES = ["U5", "FRAT1", "ADA"]
