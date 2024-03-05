@@ -1,6 +1,7 @@
 import os
 from Seq1 import Seq
 from Client0 import Client
+
 PRACTICE = 2
 EXERCISE = 6
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
