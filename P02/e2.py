@@ -6,4 +6,4 @@ print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 IP = "212.128.255.64"
 PORT = 8081
 c = Client(IP, PORT)
-print(f"Connection to SERVER at {IP}, PORT: {PORT}")
+print(c)

@@ -6,16 +6,19 @@ EXERCISE = 5
 
 
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
-IP = "212.128.255.88"
+IP = "192.168.0.29"
 PORT = 8080
 print(f"Connection to SERVER at {IP}, PORT: {PORT}")
+
 c = Client(IP, PORT)
 s = Seq()
+
 s.read_fasta(os.path.join("..", "sequences", "FRAT1" + ".txt"))
+print(f"Gene FRAT1: {s}")
 msg1 = "Sending FRAT1 Gene to the server, in fragments of 10 bases..."
-print(f"{msg1}")
-print(f"From server: {c.talk(msg1)}")
+c.talk(msg1)
 body = str(s)
+
 
 fragments = []
 for i in range(0, len(body), 10):
@@ -27,7 +30,7 @@ for i in range(0, len(body), 10):
     if l <= 5:
         msg2 = (f"Fragment {l}: {fragment} ")
         print(f"{msg2}")
-        print(f"From server: {c.talk(msg2)}")
+        c.talk(msg2)
     else:
         pass
 

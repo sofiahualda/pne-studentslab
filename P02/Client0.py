@@ -1,17 +1,20 @@
 import socket
-class Client:
-    def __init__(self, ip, port):
+
+
+class Client:         #crear cliente con ip y port del servidor
+    def __init__(self, ip: str, port: int):    #ip y port del servidor
         self.ip = ip
         self.port = port
 
-    def ping(self):
-        print("OK")
-
     def __str__(self):
-        return (f"Connection to SERVER at{self.ip}, PORT: {self.port}")
+        return f"Connection to SERVER at {self.ip}, PORT: {self.port}"
+
+    def ping(self):
+        print("OK!")
 
     def talk(self, msg):
-        # -- Create the socket
+        # import socket podría ir aquí también
+        # -- Create the socket: es el socket del cliente
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         # establish the connection to the Server (IP, PORT)
@@ -28,5 +31,3 @@ class Client:
 
         # Return the response
         return response
-
-
