@@ -92,7 +92,6 @@ class Server:
                 s.read_fasta(os.path.join("..", "sequences", gene + ".txt"))
                 print(str(s))
                 return str(s)
-
 s = Server()
 
 
