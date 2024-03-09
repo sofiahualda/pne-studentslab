@@ -1,5 +1,5 @@
 import os
-from Seq1 import Seq
+from Seq1forP3 import Seq
 from Client0 import Client
 PRACTICE = 2
 EXERCISE = 5

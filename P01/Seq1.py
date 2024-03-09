@@ -6,7 +6,6 @@ def are_bases_ok(strbases):
             ok = False
             break
     return ok
-from pathlib import Path
 
 
 class Seq:
