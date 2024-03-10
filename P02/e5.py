@@ -1,12 +1,12 @@
 import os
-from Seq1forP3 import Seq
+from Seq1 import Seq
 from Client0 import Client
 PRACTICE = 2
 EXERCISE = 5
 
 
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
-IP = "192.168.0.29"
+IP = "127.0.0.1"
 PORT = 8080
 print(f"Connection to SERVER at {IP}, PORT: {PORT}")
 

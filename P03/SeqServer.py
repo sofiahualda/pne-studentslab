@@ -70,7 +70,7 @@ class Server:
             gene = msg.split(" ")
             gene = gene[1]
             seq = Seq(gene)
-            termcolor.cprint("GET", 'green')
+            termcolor.cprint("COMP", 'green')
             print(seq.complement())
             return seq.complement()
 

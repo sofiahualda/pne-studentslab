@@ -5,7 +5,7 @@ from Client0 import Client
 PRACTICE = 2
 EXERCISE = 6
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
-IP = "212.128.255.88"
+IP = "127.0.0.1"
 PORT1 = 8080
 print(f"Connection to SERVER at {IP}, PORT: {PORT1}")
 PORT2 = 8081
