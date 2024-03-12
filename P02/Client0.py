@@ -1,6 +1,8 @@
 import socket
 
+
 class Client:         #crear cliente con ip y port del servidor
+
     def __init__(self, ip: str, port: int):    #ip y port del servidor
         self.ip = ip
         self.port = port
