@@ -25,5 +25,5 @@ class Client:         #crear cliente con ip y port del servidor
 IP = "127.0.0.1"
 PORT = 8080
 c = Client(IP, PORT)
-response = c.talk('46')
+response = c.talk('87')
 print(response)
