@@ -5,21 +5,18 @@ class NumberGuesser:
 
     def __init__(self):
         self.secret_number = str(random.randint(1, 100))
+        self.attempts = 0
         print(self.secret_number)
 
     def guess(self, number):
         self.number = number
-        attempts = 0
         while number != self.secret_number:
-            if number == self.secret_number:
-                return f"You won after {attempts} attempts"
-            elif number < self.secret_number:
+            self.attempts += 1
+            if number < self.secret_number:
                 return "Higher"
             elif number > self.secret_number:
                 return "Lower"
-            attempts += 1
-        return attempts
-
+        return f"You won after {str(self.attempts)} attempts"
 
 
 PORT = 8080
@@ -31,19 +28,18 @@ serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 serversocket.bind((IP, PORT))
 serversocket.listen()
 print("SEQ Server configured!")
-
-
+print("\nWaiting for clients...")
+n = NumberGuesser()    # object = instance
 flag = True
 while True:
-    print("\nWaiting for clients...")
     (clientsocket, address) = serversocket.accept()
     number = clientsocket.recv(2048).decode("utf-8")
-    n = NumberGuesser()  # object = instance
     response = n.guess(number)
     send_bytes = str.encode(response)
     clientsocket.send(send_bytes)
     if response.startswith("You"):
         clientsocket.close()
+        serversocket.close()
         flag = False
 
 
