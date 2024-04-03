@@ -28,6 +28,8 @@ def process_client(s):
     read_fileG = Path("html/info/G.html").read_text()
     read_fileT = Path("html/info/T.html").read_text()
     read_file_error = Path("html/error.html").read_text()
+    read_file_index = Path("html/index.html").read_text()
+
 
     if "info/A" in req_line:
         body = read_fileA
@@ -37,6 +39,8 @@ def process_client(s):
         body = read_fileG
     elif "info/T" in req_line:
         body = read_fileT
+    elif "" in req_line:
+        body = read_file_index
     else:
         body = read_file_error
     # -- Status line: We respond that everything is ok (200 code)
