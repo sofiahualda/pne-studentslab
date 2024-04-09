@@ -30,7 +30,6 @@ def process_client(s):
     read_file_error = Path("html/error.html").read_text()
     read_file_index = Path("html/index.html").read_text()
 
-
     if "info/A" in req_line:
         body = read_fileA
     elif "info/C" in req_line:
