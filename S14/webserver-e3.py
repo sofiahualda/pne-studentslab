@@ -20,15 +20,15 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         read_green = Path("green.html").read_text()
         read_pink = Path("pink.html").read_text()
 
-        if resource == " HTTP" or resource == "/index.html":
+        if resource == " HTTP" or resource == "index.html HTTP":
             contents = read_index
-        elif resource == "/blue.html":
+        elif resource == ("blue.html HTTP"):
             contents = read_blue
-        elif resource == "/error.html":
+        elif resource == "error.html HTTP":
             contents = read_error
-        elif resource == "/green.html":
+        elif resource == "green.html HTTP":
             contents = read_green
-        elif resource == "/pink.html":
+        elif resource == "pink.html HTTP":
             contents = read_pink
 
         self.send_response(200)
