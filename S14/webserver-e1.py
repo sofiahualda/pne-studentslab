@@ -2,7 +2,7 @@ import http.server
 import socketserver
 import termcolor
 
-PORT = 8081
+PORT = 8080
 
 socketserver.TCPServer.allow_reuse_address = True
 
@@ -10,8 +10,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
     def do_GET(self):
         termcolor.cprint(self.requestline, 'green')
-        slices = self.requestline.split('/')
-        resource = slices[1]
+        slices = self.requestline.split("/")
+        resource =slices[1]
         if resource == " HTTP":
             contents = "Welcome to my server"
         else:

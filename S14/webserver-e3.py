@@ -3,7 +3,7 @@ import socketserver
 import termcolor
 from pathlib import Path
 
-PORT = 8081
+PORT = 8080
 
 socketserver.TCPServer.allow_reuse_address = True
 
