@@ -47,7 +47,7 @@ print(yourcar.speed)
 print(yourcar.make_carbio(), "and music is", yourcar)
 
 
-#e2.py
+#webserver.py
 class Car:
     def __init__(self, brand, speed = 0):    #how an object is born: init method (to move from class to object)
         self.car_brand = brand          # self is a parameter of all methods, its the object itself

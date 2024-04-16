@@ -10,17 +10,15 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
     def do_GET(self):
         termcolor.cprint(self.requestline, 'green')
-        slices = self.requestline.split("/")
-        resource =slices[1]
-        if resource == " HTTP":
+        if self.path == "/":
             contents = "Welcome to my server"
+            self.send_response(200)
         else:
             contents = "Resource not available"
-
-        self.send_response(200)
+            self.send_response(404)
 
         self.send_header('Content-Type', 'text/plain')
-        self.send_header('Content-Length', len(contents.encode()))
+        self.send_header('Content-Length', str(len(contents.encode())))
 
         self.end_headers()
 
