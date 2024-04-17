@@ -19,14 +19,19 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         termcolor.cprint(self.requestline, 'green')
         if self.path == "/":
-            contents = Path('html/form-1.html').read_text()
-        elif self.path.startswith("/echo"):
+            contents = Path('html/form-2.html').read_text()
+        elif self.path.startswith("/echo") and self.path.endswith("on"):
+            msg = self.path[1:]
+            msg = msg[9:-7].upper()
+            contents = read_html_file("form-e2.html").render(context={"todisplay": msg})
+        elif self.path.startswith("/echo") and not self.path.endswith("on"):
             msg = self.path[1:]
             msg = msg[9:]
             contents = read_html_file("form-e1.html").render(context={"todisplay": msg})
         else:
             contents = Path("html/error.html").read_text()
             self.send_response(404)
+
         self.send_response(200)
         self.send_header('Content-Type', 'text/html')
         self.send_header('Content-Length', len(str.encode(contents)))
