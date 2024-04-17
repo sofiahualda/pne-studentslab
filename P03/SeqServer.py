@@ -73,12 +73,22 @@ class Server:
             # response = seq.info()
 
         elif msg.startswith("COMP"):
-            gene = msg.split(" ")
-            gene = gene[1]
-            seq = Seq(gene)
-            termcolor.cprint("COMP", 'green')
-            print(seq.complement())
-            return seq.complement()
+            complement = ""
+            if self.strbases == None:
+                return "NULL"
+            else:
+                for base in self.strbases:
+                    if base == "A":
+                        complement += "T"
+                    elif base == "G":
+                        complement += "C"
+                    elif base == "C":
+                        complement += "G"
+                    elif base == "T":
+                        complement += "A"
+                    else:
+                        return "ERROR"
+            return complement
 
         elif msg.startswith("REV"):
             gene = msg.split(" ")
