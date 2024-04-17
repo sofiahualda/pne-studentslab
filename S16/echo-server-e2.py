@@ -16,7 +16,6 @@ socketserver.TCPServer.allow_reuse_address = True
 class TestHandler(http.server.BaseHTTPRequestHandler):
 
     def do_GET(self):
-
         termcolor.cprint(self.requestline, 'green')
         if self.path == "/":
             contents = Path('html/form-2.html').read_text()
