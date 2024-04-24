@@ -2,26 +2,25 @@ import json
 import termcolor
 from pathlib import Path
 
+json_string = Path("people-e1.json").read_text()
+people = json.loads(json_string)['people']
+for person in people:
+    firstname = person['Firstname']
+    lastname = person['Lastname']
+    age = person['age']
+    phoneNumber = person['phoneNumber']
 
-jsonstring = Path("people-3.json").read_text()
+    print()
+    termcolor.cprint("Name: ", 'green', end="")
+    print(firstname, lastname)
+    termcolor.cprint("Age: ", 'green', end="")
+    print(age)
+    termcolor.cprint("Phone numbers: ", 'green', end='')
+    print(len(phoneNumber))
 
-person = json.loads(jsonstring)
-
-print()
-termcolor.cprint("Name: ", 'green', end="")
-print(person['Firstname'], person['Lastname'])
-termcolor.cprint("Age: ", 'green', end="")
-print(person['age'])
-
-phoneNumbers = person['phoneNumber']
-
-termcolor.cprint("Phone numbers: ", 'green', end='')
-print(len(phoneNumbers))
-
-for i, dictnum in enumerate(phoneNumbers):
-    termcolor.cprint("  Phone " + str(i + 1) + ": ", 'blue')
-
-    termcolor.cprint("\t- Type: ", 'red', end='')
-    print(dictnum['type'])
-    termcolor.cprint("\t- Number: ", 'red', end='')
-    print(dictnum['number'])
+    for i, num in enumerate(phoneNumber):
+        termcolor.cprint("  Phone {}:".format(i), 'blue')
+        termcolor.cprint("    Type: ", 'red', end='')
+        print(num['type'])
+        termcolor.cprint("    Number: ", 'red', end='')
+        print(num['number'])
