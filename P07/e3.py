@@ -23,7 +23,6 @@ url = server + resource + params
 GENE = "MIR633"
 
 print()
-print()
 print(f"Server: {server}")
 print(f"Url: {url}")
 
@@ -40,8 +39,7 @@ print(f"Response receiced!: {response.status} {response.reason}")
 if response.status == HTTPStatus.OK:
     data_str = response.read().decode("utf-8")
     data = json.loads(data_str)
-    print()
-    print(f"{termcolor.cprint("Gene: ", "green", end=GENE)}")
-    print(f"{termcolor.cprint("Description: ", "green", end=data['desc'])}")
-    print(f"{termcolor.cprint("Bases: ", "green", end=data['seq'])}")
+    f"{termcolor.cprint("\nGene: ", "green", end=GENE)}"
+    f"{termcolor.cprint("\nDescription: ", "green", end=data['desc'])}"
+    f"{termcolor.cprint("\nBases: ", "green", end=data['seq'])}"
 

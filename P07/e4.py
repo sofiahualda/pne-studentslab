@@ -16,12 +16,13 @@ genes = {
     "KDR": "ENSG00000128052",
     "ANK2": "ENSG00000145362"
 }
+
 gene_name = input("Write the gene name: ")
 
-if gene_name in genes.keys():
-
+if gene_name in genes:
+    id = genes[gene_name]
     server = 'rest.ensembl.org'
-    resource = '/sequence/id/ENSG00000207552'
+    resource = f'/sequence/id/{id}'
     params = '?content-type=application/json'
     url = server + resource + params
 
@@ -39,13 +40,18 @@ if gene_name in genes.keys():
 
     response = conn.getresponse()
     print(f"Response receiced!: {response.status} {response.reason}")
+    print()
     if response.status == HTTPStatus.OK:
         data_str = response.read().decode("utf-8")
         data = json.loads(data_str)
+        f"{termcolor.cprint("Gene: ", "green", end=gene_name)}"
+        f"{termcolor.cprint("\nDescription: ", "green", end=data['desc'])}"
         print()
-        print(f"{termcolor.cprint("Gene: ", "green", end=gene_name)}")
-        print(f"{termcolor.cprint("Description: ", "green", end=data['desc'])}")
         s = str(data['seq'])
         GENE = Seq(s)
-        print()
-        print(f"Total length: {GENE.len()}\n {GENE.info()}\nMost Frequent Base: {GENE.max_base()}")
+        total_len = GENE.len()
+        termcolor.cprint("Total length: ", 'green', end=str(total_len))
+        a_a = termcolor.cprint("\nA: ", 'blue', end=str(f"{GENE.count_base('A')} ({((GENE.count_base('A') / total_len) * 100):.1f}%)\n"))
+        a_c = termcolor.cprint("C: ", 'blue', end=str(f"{GENE.count_base('C')} ({((GENE.count_base('C') / total_len) * 100):.1f}%)\n"))
+        a_g = termcolor.cprint("G: ", 'blue', end=str(f"{GENE.count_base('G')} ({((GENE.count_base('G') / total_len) * 100):.1f}%)\n"))
+        a_t = termcolor.cprint("T: ", 'blue', end=str(f"{GENE.count_base('T')} ({((GENE.count_base('T') / total_len) * 100):.1f}%)\n"))

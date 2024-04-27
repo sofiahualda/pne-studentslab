@@ -100,14 +100,14 @@ class Seq:
         max_base = max(bases_d, key=bases_d.get)
         return max_base
 
-    def info(self):
-        seq = f"Sequence: {self.strbases}\n"
-        seq += f"Total length: {self.len()}\n"
-        for base, count in self.count().items():
-            print()# base = key; count = value; en cada vuelta devuelve una pareja, pero no porque en el mismo orden
-            if self.len() != 0:
-                percentage = (count * 100) / self.len()        # diccionarios: no tienen un orden predefinido; las listas si
-            else:
-                percentage = 0
-            seq += f"{base}: {count}\n ({percentage} %"
-        return seq
+  #  def info(self):
+  #      seq = f"Sequence: {self.strbases}\n"
+  #      seq += f"Total length: {self.len()}\n"
+  #      for base, count in self.count().items():
+  #          print()# base = key; count = value; en cada vuelta devuelve una pareja, pero no porque en el mismo orden
+  #          if self.len() != 0:
+  #              percentage = (count * 100) / self.len()        # diccionarios: no tienen un orden predefinido; las listas si
+  #          else:
+  #              percentage = 0
+  #          seq += f"{base}: {count}\n ({percentage} %"
+  #      return seq
