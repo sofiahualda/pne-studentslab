@@ -55,3 +55,4 @@ if gene_name in genes:
         a_c = termcolor.cprint("C: ", 'blue', end=str(f"{GENE.count_base('C')} ({((GENE.count_base('C') / total_len) * 100):.1f}%)\n"))
         a_g = termcolor.cprint("G: ", 'blue', end=str(f"{GENE.count_base('G')} ({((GENE.count_base('G') / total_len) * 100):.1f}%)\n"))
         a_t = termcolor.cprint("T: ", 'blue', end=str(f"{GENE.count_base('T')} ({((GENE.count_base('T') / total_len) * 100):.1f}%)\n"))
+        f"{termcolor.cprint("Most Frequent Base: ", 'green', end=GENE.max_base())}"
