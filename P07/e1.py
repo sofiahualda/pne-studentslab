@@ -25,11 +25,11 @@ if response.status == HTTPStatus.OK:
     data_str = response.read().decode("utf-8")
     data = json.loads(data_str)
     ping = data['ping']
-    print(f"ping: {ping}")
     if ping == 1:
         print("PING OK! The database is running!")
     else:
         print("...")
+
 
 
 
