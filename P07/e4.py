@@ -47,4 +47,5 @@ if gene_name in genes.keys():
         print(f"{termcolor.cprint("Description: ", "green", end=data['desc'])}")
         s = str(data['seq'])
         GENE = Seq(s)
+        print()
         print(f"Total length: {GENE.len()}\n {GENE.info()}\nMost Frequent Base: {GENE.max_base()}")

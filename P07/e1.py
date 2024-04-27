@@ -28,7 +28,7 @@ if response.status == HTTPStatus.OK:
     if ping == 1:
         print("PING OK! The database is running!")
     else:
-        print("...")
+        print("....")
 
 
 

@@ -23,6 +23,7 @@ url = server + resource + params
 GENE = "MIR633"
 
 print()
+print()
 print(f"Server: {server}")
 print(f"Url: {url}")
 

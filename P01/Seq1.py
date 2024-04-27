@@ -103,7 +103,8 @@ class Seq:
     def info(self):
         seq = f"Sequence: {self.strbases}\n"
         seq += f"Total length: {self.len()}\n"
-        for base, count in self.count().items():               # base = key; count = value; en cada vuelta devuelve una pareja, pero no porque en el mismo orden
+        for base, count in self.count().items():
+            print()# base = key; count = value; en cada vuelta devuelve una pareja, pero no porque en el mismo orden
             if self.len() != 0:
                 percentage = (count * 100) / self.len()        # diccionarios: no tienen un orden predefinido; las listas si
             else:
