@@ -38,7 +38,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                         msg = ""
                         for line in sequence:
                             msg += line
-                        contents = read_html_file("get.html").render(context={"todisplay": str(msg), "sequence": str(index)})
+                        contents = read_html_file("get.html").render(context={"number": str(msg), "sequence": str(index)})
         elif self.path[:5] == "/gene":
             for gene in GENES:
                 if self.path.endswith(f"{gene}"):
