@@ -2,9 +2,10 @@ import http.server
 from http import HTTPStatus
 import socketserver
 import termcolor
-import http.client
 from pathlib import Path
 import jinja2 as j
+import os
+from urllib.parse import urlparse, parse_qs
 import json
 
 def read_html_file(filename):
@@ -26,7 +27,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         print()
         print(f"Server: {server}")
         print(f"Url: {url}")
-        conn = http.client.HTTPConnection(server)
 
         response = conn.getresponse()
         print(f"Response receiced!: {response.status} {response.reason}")
@@ -38,8 +38,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 exit()
             termcolor.cprint(self.requestline, 'green')
             if resource == "/":
-                contents = Path('html/index.html').read_text()
-            if resource == "/listSpecies":
+                contents = read_html_file("index.html").render()
+            elif resource == "/listSpecies":
                 data_str = response.read().decode("utf-8")
                 data = json.loads(data_str)
                 dict = data['species']

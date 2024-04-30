@@ -5,10 +5,13 @@
     <title>LIST OF SPECIES IN THE BROWSER</title>
 </head>
 <body style="background-color: lightblue;">
-    The total number of species in the ensembl is: {{context.number}} <br>
+<p>The total number of species in the ensembl is: {{context.number}}</p><br>
     The limit you have selected is: {{context.limit}}<br>
     The name of the species are:<br>
-    {{context.names}}
+    <ul>
+        {% for name in context.names%}
+        {{context.names}}
+    </ul>
     <br>
 </body>
 </html>

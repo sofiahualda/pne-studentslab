@@ -5,7 +5,11 @@
     <title>KARYOTYPE OF A SPECIFIC SPECIES</title>
 </head>
 <body style="background-color: lightblue;">
+    Karyotype of {{context.specie}}
     The names of the chromosomes are: <br>
+    {% for chromosomes in context.karyotype %}
+    p {{chromosome}}
+    <p>{% endfor %}</p>
     {{context.names}}
     <br>
 </body>
