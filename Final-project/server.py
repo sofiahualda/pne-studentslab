@@ -9,10 +9,9 @@ import jinja2 as j
 import json
 
 port = 8080
-html_folder = "html"
-enseml_server = "rest.enseml.org"
+ensembl_server = "rest.ensembl.org"
 resource_to_ensembl_request = {
-    '/listSpecies': {'resource': "/info/species", 'parameters': "content-type=application/json"}
+    '/listSpecies': {'resource': "/info/species", 'params': "content-type=application/json"}
 }
 
 def read_html_file(filename):
@@ -41,14 +40,15 @@ def handle_error(endpoint, msg):
     }
     return read_html_file("error.html").render(context=dict_with_errors)
 
-def list_species(endpoint, params):
+def list_species(endpoint, parameters):
     request = resource_to_ensembl_request[endpoint]
-    URL = f"{request['resource']}?{request['parameters']}"
-    ok, data = server_request(enseml_server, URL)
-    if not ok:
+    URL = f"{request['resource']}?{request['params']}"
+    ok, data = server_request(ensembl_server, URL)
+    if ok:
         limit = None
-        if 'limit' in params:
-            limit = int(params['limit'][0])
+        if 'limit' in parameters:
+            limit = int(parameters['limit'][0])
+        print(data)
         species = data['species']   # list of dictionaries
         name_species = []           # each specie is a dictionary
         for specie in species[:limit]:
@@ -64,8 +64,6 @@ def list_species(endpoint, params):
         contents = handle_error(endpoint, "Error in communication with the Ensembl server")
         code = HTTPStatus.SERVICE_UNAVAILABLE
     return code, contents
-
-socketserver.TCPServer.allow_reuse_address = True
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -99,15 +97,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         self.wfile.write(contents_bytes)
 
-Handler = TestHandler
-
-with socketserver.TCPServer(("", port), Handler) as httpd:
-
-    print("Serving at PORT", port)
-
+with socketserver.TCPServer(("", port), TestHandler) as httpd:
+    print("Serving at PORT...", port)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("")
+        print()
         print("Stopped by the user")
         httpd.server_close()
