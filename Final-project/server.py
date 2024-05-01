@@ -65,6 +65,26 @@ def list_species(endpoint, parameters):
         code = HTTPStatus.SERVICE_UNAVAILABLE
     return code, contents
 
+def karyotype(endpoint, parameters):
+    request = resource_to_ensembl_request[endpoint]
+    specie = parameters['species'][0]
+    URL = f"{request['resource']}/{specie}?{request['params']}"
+    ok, data = server_request(ensembl_server, URL)
+    if ok:
+        '''print(data)'''
+
+        """WE PARSE THE INFO FROM ENSEMBL"""
+        context = {
+            'specie': specie,
+            'karyotype': data['karyotype']
+        }
+        contents = read_html_file("karyotype.html").render(context=context)
+        code = HTTPStatus.OK
+    else:
+        contents = handle_error(endpoint, "Error in communication with the Ensembl server")
+        code = HTTPStatus.SERVICE_UNAVAILABLE
+    return code, contents
+
 class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         termcolor.cprint(self.requestline, 'green')
