@@ -11,7 +11,9 @@ import json
 port = 8080
 ensembl_server = "rest.ensembl.org"
 resource_to_ensembl_request = {
-    '/listSpecies': {'resource': "/info/species", 'params': "content-type=application/json"}
+    '/listSpecies': {'resource': "/info/species", 'params': "content-type=application/json"},
+    '/karyotype': {'resource': "/info/assembly/", 'params': "content-type=application/json"},
+    '/chromosomeLength': {'resource': "/info/assembly", 'params': "content-type=application/json"}
 }
 
 def read_html_file(filename):
@@ -54,7 +56,7 @@ def list_species(endpoint, parameters):
         for specie in species[:limit]:
             name_species.append(specie['display_name'])
         context = {
-            'number of species': len(species),
+            'number_of_species': len(species),
             'limit': limit,
             'name_species': name_species
         }
@@ -71,9 +73,6 @@ def karyotype(endpoint, parameters):
     URL = f"{request['resource']}/{specie}?{request['params']}"
     ok, data = server_request(ensembl_server, URL)
     if ok:
-        '''print(data)'''
-
-        """WE PARSE THE INFO FROM ENSEMBL"""
         context = {
             'specie': specie,
             'karyotype': data['karyotype']
@@ -84,6 +83,24 @@ def karyotype(endpoint, parameters):
         contents = handle_error(endpoint, "Error in communication with the Ensembl server")
         code = HTTPStatus.SERVICE_UNAVAILABLE
     return code, contents
+
+def chromosome_length(endpoint, parameters):
+    request = resource_to_ensembl_request[endpoint]
+    specie = parameters['species'][0]
+    URL = f"{request['resource']}/{specie}?{request['params']}"
+    ok, data = server_request(ensembl_server, URL)
+    if ok:
+        context = {
+            'specie': specie,
+            'karyotype': data['karyotype']
+        }
+        contents = read_html_file("karyotype.html").render(context=context)
+        code = HTTPStatus.OK
+    else:
+        contents = handle_error(endpoint, "Error in communication with the Ensembl server")
+        code = HTTPStatus.SERVICE_UNAVAILABLE
+    return code, contents
+
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -103,9 +120,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         elif endpoint == "/listSpecies":
             code, contents = list_species(endpoint, parameters)
         elif endpoint == "/karyotype":
-            pass
+            code, contents = karyotype(endpoint, parameters)
         elif endpoint == "/chromosomeLength":
-            pass
+            code, contents = chromosome_length(endpoint, parameters)
         else:
             contents = handle_error(endpoint, "Resource not available")
 
