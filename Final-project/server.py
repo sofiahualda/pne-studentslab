@@ -12,8 +12,7 @@ port = 8080
 ensembl_server = "rest.ensembl.org"
 resource_to_ensembl_request = {
     '/listSpecies': {'resource': "/info/species", 'params': "content-type=application/json"},
-    '/karyotype': {'resource': "/info/assembly/", 'params': "content-type=application/json"},
-    '/chromosomeLength': {'resource': "/info/assembly", 'params': "content-type=application/json"}
+    '/karyotype': {'resource': "/info/assembly/", 'params': "content-type=application/json"}
 }
 
 def read_html_file(filename):
@@ -101,6 +100,7 @@ def chromosome_length(endpoint, parameters):
         code = HTTPStatus.SERVICE_UNAVAILABLE
     return code, contents
 
+socketserver.TCPServer.allow_reuse_address = True
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
