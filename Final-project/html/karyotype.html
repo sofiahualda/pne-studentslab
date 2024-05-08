@@ -7,8 +7,12 @@
     <body style="background-color: lightblue">
         <h1>Karyotype of {{context.specie}} specie</h1>
         <p>The name of the chromosomes are:</p>
-        {% for chromosome in context.karyotype %}
-        <p>{{chromosome}}</p>
-        {% endfor %}
+
+        <ul>
+            {% for name in context.karyotype %}
+            <li>{{name}}</li>
+            {% endfor %}
+        </ul>
+
     </body>
 </html>
