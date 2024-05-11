@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 import jinja2 as j
 import json
+from Seq1 import Seq
 
 port = 8080
 ensembl_server = "rest.ensembl.org"
@@ -15,7 +16,7 @@ resource_to_ensembl_server = {
     '/karyotype': {'resource': "/info/assembly", 'params': "content-type=application/json"},
     '/chromosomeLength': {'resource': "/info/assembly", 'params': "content-type=application/json"},
     '/geneSeq': {'resource': "/sequence/id", 'params': "content-type=application/json"},
-    '/geneInfo': {'resource': "/overlap/id", 'params': "feature=gene;content-type=application/json"}
+    '/geneInfo': {'resource': "/overlap/id", 'params': "feature=gene;content-type=application/json"},
 }
 
 
@@ -170,6 +171,7 @@ def geneInfo(parameters):
             length = end - start
             chromosome_name = data['assembly_name']
             context = {
+                'gene_requested': gene_requested,
                 'start': start,
                 'end': end,
                 'length': length,
@@ -186,6 +188,31 @@ def geneInfo(parameters):
         code = HTTPStatus.NOT_FOUND
     return code, contents
 
+def geneCalc(parameters):
+    endpoint = '/geneSeq'
+    gene_requested = parameters['gene'][0]
+    id_of_gene = obtain_id(gene_requested)
+    if id_of_gene is not None:
+        request = resource_to_ensembl_server[endpoint]
+        URL = f"{request['resource']}/{id_of_gene}?{request['params']}"
+        ok, data = request_to_server(ensembl_server, URL)
+        if ok:
+            resulting_sequence = data['seq']
+            total_len = len(resulting_sequence)
+            c_a = f"{((resulting_sequence.count('A') / total_len) * 100):.1f}%"
+            c_c = f"{((resulting_sequence.count('C') / total_len) * 100):.1f}%"
+            c_g = f"{((resulting_sequence.count('G') / total_len) * 100):.1f}%"
+            c_t = f"{((resulting_sequence.count('T') / total_len) * 100):.1f}%"
+            context = {
+                    'gene_requested': gene_requested,
+                    'total_length': total_len,
+                    'c_a': c_a,
+                    'c_g': c_g,
+                    'c_c': c_c,
+                    'c_t': c_t
+                }
+            contents = read_html_file("geneCalc.html").render(context=context)
+            return contents
 
 socketserver.TCPServer.allow_reuse_address = True
 
@@ -215,7 +242,7 @@ class MyHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         elif endpoint == "/geneInfo":
             code, contents = geneInfo(parameters)
         elif endpoint == "/geneCalc":
-            pass
+            contents = geneCalc(parameters)
         elif endpoint == "/geneList":
             pass
         else:
