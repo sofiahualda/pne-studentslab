@@ -7,7 +7,7 @@ from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 import jinja2 as j
 import json
-from Seq1 import Seq
+
 
 port = 8080
 ensembl_server = "rest.ensembl.org"
