@@ -58,7 +58,6 @@ def list_species(parameters):
         limit = None
         if 'limit' in parameters:
             limit = int(parameters['limit'][0])
-        print(data)
         species = data['species']   # list of dictionaries
         name_species = []           # each specie is a dictionary
         for specie in species[:limit]:
@@ -213,27 +212,34 @@ def geneCalc(parameters):
                     'c_t': c_t
                 }
             contents = read_html_file("geneCalc.html").render(context=context)
-            return contents
+        else:
+            contents = handle_error(endpoint, "The requested gene was not found")
+        return contents
 
-def
 
 def geneList(parameters):
     endpoint = '/geneList'
-    chromo_requested = parameters['chromo'][0]
-    start_requested = parameters['start'][0]
-    end_requested = parameters['end'][0]
+    chromo_requested = int(parameters['chromo'][0])
+    start_requested = int(parameters['start'][0])
+    end_requested = int(parameters['end'][0])
     request = resource_to_ensembl_server[endpoint]
     URL = f"{request['resource']}/{chromo_requested}:{start_requested}-{end_requested}?{request['params']}"
     ok, data = request_to_server(ensembl_server, URL)
+    f"lala{(data['external_name'])}"
     if ok:
-        data = data[0]
-        for dict in data:
-            if dict['end'] == end_requested and dict['start'] == start_requested:
-                id_of_gene = dict['id']
-    pass
-
-
-
+        f"lala{(data['external_name'])}"
+        context = {
+            'gene_list': data['external_name'],
+            'chromo_requested': chromo_requested,
+            'start_requested': start_requested,
+            'end_requested': end_requested,
+            }
+        contents = read_html_file("geneList.html").render(context=context)
+        code = HTTPStatus.OK
+    else:
+        contents = handle_error(endpoint, "The requested gene was not found")
+        code = HTTPStatus.NOT_FOUND
+    return code, contents
 
 socketserver.TCPServer.allow_reuse_address = True
 
