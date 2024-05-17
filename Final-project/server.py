@@ -17,6 +17,7 @@ resource_to_ensembl_server = {
     '/chromosomeLength': {'resource': "/info/assembly", 'params': "content-type=application/json"},
     '/geneSeq': {'resource': "/sequence/id", 'params': "content-type=application/json"},
     '/geneInfo': {'resource': "/overlap/id", 'params': "feature=gene;content-type=application/json"},
+    '/geneList': {'resource': "/overlap/region/human", 'params': "content-type=application/json;feature=gene;feature=transcript;feature=cds;feature=exon"}
 }
 
 
@@ -214,6 +215,26 @@ def geneCalc(parameters):
             contents = read_html_file("geneCalc.html").render(context=context)
             return contents
 
+def
+
+def geneList(parameters):
+    endpoint = '/geneList'
+    chromo_requested = parameters['chromo'][0]
+    start_requested = parameters['start'][0]
+    end_requested = parameters['end'][0]
+    request = resource_to_ensembl_server[endpoint]
+    URL = f"{request['resource']}/{chromo_requested}:{start_requested}-{end_requested}?{request['params']}"
+    ok, data = request_to_server(ensembl_server, URL)
+    if ok:
+        data = data[0]
+        for dict in data:
+            if dict['end'] == end_requested and dict['start'] == start_requested:
+                id_of_gene = dict['id']
+    pass
+
+
+
+
 socketserver.TCPServer.allow_reuse_address = True
 
 
@@ -244,7 +265,7 @@ class MyHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         elif endpoint == "/geneCalc":
             contents = geneCalc(parameters)
         elif endpoint == "/geneList":
-            pass
+            code, contents = geneList(parameters)
         else:
             contents = handle_error(endpoint, "Resource not available")
             code = HTTPStatus.NOT_FOUND
