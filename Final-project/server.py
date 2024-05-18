@@ -164,6 +164,7 @@ def geneInfo(parameters):
         request = resource_to_ensembl_server[endpoint]
         URL = f"{request['resource']}/{id_of_gene}?{request['params']}"
         ok, data = request_to_server(ensembl_server, URL)
+
         if ok:
             data = data[0]
             start = data['start']
@@ -220,26 +221,31 @@ def geneCalc(parameters):
 def geneList(parameters):
     endpoint = '/geneList'
     chromo_requested = int(parameters['chromo'][0])
-    start_requested = int(parameters['start'][0])
-    end_requested = int(parameters['end'][0])
+    start_requested = parameters['start'][0]
+    end_requested = parameters['end'][0]
     request = resource_to_ensembl_server[endpoint]
     URL = f"{request['resource']}/{chromo_requested}:{start_requested}-{end_requested}?{request['params']}"
     ok, data = request_to_server(ensembl_server, URL)
-    f"lala{(data['external_name'])}"
+    gene = None
     if ok:
-        f"lala{(data['external_name'])}"
-        context = {
-            'gene_list': data['external_name'],
-            'chromo_requested': chromo_requested,
-            'start_requested': start_requested,
-            'end_requested': end_requested,
-            }
-        contents = read_html_file("geneList.html").render(context=context)
-        code = HTTPStatus.OK
-    else:
-        contents = handle_error(endpoint, "The requested gene was not found")
-        code = HTTPStatus.NOT_FOUND
-    return code, contents
+        gene_list = []
+        for d in data:
+            print(d)
+            gene = d['external_name']
+            if gene is not None:
+                gene_list.append(gene)
+                context = {
+                    'gene_list': gene_list,
+                    'chromo_requested': chromo_requested,
+                    'start_requested': start_requested,
+                    'end_requested': end_requested,
+                    }
+                contents = read_html_file("geneList.html").render(context=context)
+                code = HTTPStatus.OK
+            else:
+                contents = handle_error(endpoint, "The requested gene was not found")
+                code = HTTPStatus.NOT_FOUND
+            return code, contents
 
 socketserver.TCPServer.allow_reuse_address = True
 
