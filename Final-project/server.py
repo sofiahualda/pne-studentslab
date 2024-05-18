@@ -226,26 +226,23 @@ def geneList(parameters):
     request = resource_to_ensembl_server[endpoint]
     URL = f"{request['resource']}/{chromo_requested}:{start_requested}-{end_requested}?{request['params']}"
     ok, data = request_to_server(ensembl_server, URL)
-    gene = None
     if ok:
         gene_list = []
         for d in data:
-            print(d)
-            gene = d['external_name']
-            if gene is not None:
-                gene_list.append(gene)
-                context = {
-                    'gene_list': gene_list,
-                    'chromo_requested': chromo_requested,
-                    'start_requested': start_requested,
-                    'end_requested': end_requested,
-                    }
-                contents = read_html_file("geneList.html").render(context=context)
-                code = HTTPStatus.OK
-            else:
-                contents = handle_error(endpoint, "The requested gene was not found")
-                code = HTTPStatus.NOT_FOUND
-            return code, contents
+            if 'external_name' in d:
+                gene_list.append(d['external_name'])
+        context = {
+            'gene_list': gene_list,
+            'chromo_requested': chromo_requested,
+            'start_requested': start_requested,
+            'end_requested': end_requested,
+            }
+        contents = read_html_file("geneList.html").render(context=context)
+        code = HTTPStatus.OK
+    else:
+        contents = handle_error(endpoint, "The requested gene was not found")
+        code = HTTPStatus.NOT_FOUND
+    return code, contents
 
 socketserver.TCPServer.allow_reuse_address = True
 

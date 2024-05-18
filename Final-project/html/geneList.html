@@ -7,7 +7,9 @@
 <body style="background-color: lightblue">
     <h1>List of genes located in chromosome {{context.chromo_requested}} in range: {{context.start_requested}}-{{context.end_requested}}</h1>
     <ul>
-        <li>{{context.gene_list}}</li>
+        {% for name in context.gene_list %}
+        <li>{{name}}</li>
+        {% endfor %}
     </ul>
 
 </body>
