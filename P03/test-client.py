@@ -37,4 +37,4 @@ for gene in GENES:
     response = c.talk(f"GENE {gene}")
     print(response)
     print()
-# print(f"GENE U5\n{c.talk("GENE U5")}\n\nGENE ADA\n{c.talk("GENE ADA")}\n\nGENE FRAT1\n{c.talk("GENE FRAT1")}\n\nGENE FXN\n{c.talk("GENE FXN")}\n\nGENE RNU6_269P\n{c.talk("GENE RNU6_269P")}")
+#print(f"GENE U5\n{c.talk("GENE U5")}\n\nGENE ADA\n{c.talk("GENE ADA")}\n\nGENE FRAT1\n{c.talk("GENE FRAT1")}\n\nGENE FXN\n{c.talk("GENE FXN")}\n\nGENE RNU6_269P\n{c.talk("GENE RNU6_269P")}")
