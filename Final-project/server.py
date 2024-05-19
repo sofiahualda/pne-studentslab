@@ -49,7 +49,7 @@ def handle_error(endpoint, msg):
     return read_html_file("error.html").render(context=dict_with_errors)
 
 
-def list_species(parameters):
+def listSpecies(parameters):
     endpoint = '/listSpecies'
     request = resource_to_ensembl_server[endpoint]
     URL = f"{request['resource']}?{request['params']}"
@@ -67,7 +67,7 @@ def list_species(parameters):
             'limit': limit,
             'name_species': name_species
         }
-        contents = read_html_file("list_species.html").render(context=context)
+        contents = read_html_file("listSpecies.html").render(context=context)
         code = HTTPStatus.OK
     else:
         contents = handle_error(endpoint, "The communication with the Ensembl server failed")
@@ -94,7 +94,7 @@ def karyotype(parameters):
     return code, contents
 
 
-def chromosome_length(parameters):
+def chromosomeLength(parameters):
     endpoint = '/chromosomeLength'
     request = resource_to_ensembl_server[endpoint]
     specie = parameters['species'][0]
@@ -113,7 +113,7 @@ def chromosome_length(parameters):
             'chromosome_requested': chromo_requested,
             'length': length
         }
-        contents = read_html_file("chromosome_length.html").render(context=context)
+        contents = read_html_file("chromosomeLength.html").render(context=context)
         code = HTTPStatus.OK
     else:
         contents = handle_error(endpoint, "The communication with the Ensembl server failed")
@@ -262,11 +262,11 @@ class MyHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         if endpoint == "/":
             contents = read_html_file("index.html").render()
         elif endpoint == "/listSpecies":
-            code, contents = list_species(parameters)
+            code, contents = listSpecies(parameters)
         elif endpoint == "/karyotype":
             code, contents = karyotype(parameters)
         elif endpoint == "/chromosomeLength":
-            code, contents = chromosome_length(parameters)
+            code, contents = chromosomeLength(parameters)
         elif endpoint == "/geneSeq":
             code,contents = geneSeq(parameters)
         elif endpoint == "/geneInfo":
