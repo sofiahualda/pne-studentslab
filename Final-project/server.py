@@ -30,6 +30,7 @@ def read_html_file(filename):
 def request_to_server(SERVER, URL):
     ok = True
     data = None
+
     try:
         connection = http.client.HTTPConnection(SERVER)
         connection.request("GET", URL)
