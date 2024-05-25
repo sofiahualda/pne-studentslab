@@ -81,7 +81,7 @@ def listSpecies(parameters):
                 'name_species': name_species
             }
             code = HTTPStatus.OK
-            if 'json' in parameters and parameters['json'][0] == 1:
+            if 'json' in parameters and parameters['json'][0] == '1':
                 type_content = "application/json"
                 contents = json.dumps(context)
             else:
@@ -210,6 +210,8 @@ def geneSeq(parameters):
                     contents = read_html_file("geneSeq.html").render(context=context)
             else:
                 stop = True
+        else:
+            stop = True
     except Exception as exception:
         print(exception)
         stop = True
@@ -369,7 +371,7 @@ class MyHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         elif endpoint == "/chromosomeLength":
             code, contents, type_content = chromosomeLength(parameters)
         elif endpoint == "/geneSeq":
-            code,contents, type_content = geneSeq(parameters)
+            code, contents, type_content = geneSeq(parameters)
         elif endpoint == "/geneInfo":
             code, contents, type_content = geneInfo(parameters)
         elif endpoint == "/geneCalc":
