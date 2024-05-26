@@ -379,14 +379,15 @@ class MyHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         elif endpoint == "/geneList":
             code, contents, type_content = geneList(parameters)
         else:
-            contents = catch_error(endpoint, "Resource not available")
-            code = 404
+            code, contents, type_content = catch_error(endpoint, "Resource not available")
+
 
         self.send_response(code)
+        contents = contents.encode()
         self.send_header('Content-Type', type_content)
-        self.send_header('Content-Length', str(len(contents.encode())))
+        self.send_header('Content-Length', str(len(contents)))
         self.end_headers()
-        self.wfile.write(contents.encode())
+        self.wfile.write(contents)
 
 with socketserver.TCPServer(("", port), MyHTTPRequestHandler) as httpd:
     print("Serving at PORT...", port)
