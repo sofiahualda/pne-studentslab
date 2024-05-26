@@ -304,7 +304,7 @@ def geneCalc(parameters):
         print(exception)
         stop = True
     if stop:
-        return catch_error(endpoint, ("Something has gone wrong! Try again"), json_type='json' in parameters and parameters['json'][0] == "1")
+        return catch_error(endpoint, "Something has gone wrong! Try again", json_type='json' in parameters and parameters['json'][0] == "1")
     return code, contents, type_content
 
 
