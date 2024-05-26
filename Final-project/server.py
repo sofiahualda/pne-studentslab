@@ -54,7 +54,7 @@ def catch_error(endpoint, msg, json_type=False):
     else:
         type_content = "text/html"
         contents = read_html_file("error.html").render(context=dict_with_errors)
-    return contents, code, type_content
+    return code, contents, type_content
 
 
 def listSpecies(parameters):
@@ -172,7 +172,7 @@ def chromosomeLength(parameters):
 
 
 def obtain_id(gene):
-    resource = "/homology/symbol/human/", gene
+    resource = "/homology/symbol/human/" + gene
     parameters = "content-type=application/json;format=condensed"
     URL = f"{resource}?{parameters}"
     ok, data = request_to_server(ensembl_server, URL)
@@ -217,7 +217,7 @@ def geneSeq(parameters):
         stop = True
     if stop:
         return catch_error(endpoint, "Something has gone wrong! Try again", json_type='json' in parameters and parameters['json'][0] == "1")
-    return code, type_content, contents
+    return code, contents, type_content
 
 
 def geneInfo(parameters):
@@ -260,7 +260,7 @@ def geneInfo(parameters):
         print(exception)
         stop = True
     if stop:
-        return catch_error(endpoint, ("Something has gone wrong! Try again"), json_type='json' in parameters and parameters['json'][0] == "1")
+        return catch_error(endpoint, "Something has gone wrong! Try again", json_type='json' in parameters and parameters['json'][0] == "1")
     return code, contents, type_content
 
 def geneCalc(parameters):
@@ -338,7 +338,7 @@ def geneList(parameters):
                 contents = json.dumps(context)
             else:
                 type_content = "text/html"
-                contents = read_html_file("geneSeq.html").render(context=context)
+                contents = read_html_file("geneList.html").render(context=context)
         else:
             stop = True
     except Exception as exception:
