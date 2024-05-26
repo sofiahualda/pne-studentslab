@@ -6,7 +6,7 @@
     </head>
     <body style="background-color: lightblue">
         <p>The total number of species in the ensembl server is: {{context.number_species}}</p>
-        <p>Your limit selected was: {{context.limit}}</p>
+        <p>The limit you have selected, in case you introduced it, is: {{context.limit}}</p>
         <p>The names of the species selected are:</p>
         <ul>
             {% for name in context.name_species %}

@@ -43,7 +43,7 @@ def request_to_server(SERVER, URL):
     return ok, data
 
 def catch_error(endpoint, msg, json_type=False):
-    code = HTTPStatus.NOT_FOUND
+    code = 404
     dict_with_errors = {
         'endpoint': endpoint,
         'msg': msg
@@ -80,7 +80,7 @@ def listSpecies(parameters):
                 'limit': limit,
                 'name_species': name_species
             }
-            code = HTTPStatus.OK
+            code = 200
             if 'json' in parameters and parameters['json'][0] == '1':
                 type_content = "application/json"
                 contents = json.dumps(context)
@@ -113,7 +113,7 @@ def karyotype(parameters):
                 'specie': specie,
                 'karyotype': data['karyotype']
             }
-            code = HTTPStatus.OK
+            code = 200
             if 'json' in parameters and parameters['json'][0] == "1":
                 type_content = "application/json"
                 contents = json.dumps(context)
@@ -154,7 +154,7 @@ def chromosomeLength(parameters):
                 'chromosome_requested': chromo_requested,
                 'length': length
             }
-            code = HTTPStatus.OK
+            code = 200
             if 'json' in parameters and parameters['json'][0] == "1":
                 type_content = "application/json"
                 contents = json.dumps(context)
@@ -201,7 +201,7 @@ def geneSeq(parameters):
                     'gene_requested': gene_requested,
                     'resulting_sequence': resulting_sequence
                 }
-                code = HTTPStatus.OK
+                code = 200
                 if 'json' in parameters and parameters['json'][0] == '1':
                     type_content = "application/json"
                     contents = json.dumps(context)
@@ -247,7 +247,7 @@ def geneInfo(parameters):
                     'chromosome_name': chromosome_name,
                     'id_of_gene': id_of_gene
                 }
-                code = HTTPStatus.OK
+                code = 200
                 if 'json' in parameters and parameters['json'][0] == '1':
                     type_content = "application/json"
                     contents = json.dumps(context)
@@ -291,7 +291,7 @@ def geneCalc(parameters):
                         'c_c': c_c,
                         'c_t': c_t
                     }
-                code = HTTPStatus.OK
+                code = 200
                 if 'json' in parameters and parameters['json'][0] == "1":
                     type_content = "application/json"
                     contents = json.dumps(context)
@@ -332,7 +332,7 @@ def geneList(parameters):
                 'start_requested': start_requested,
                 'end_requested': end_requested,
                 }
-            code = HTTPStatus.OK
+            code = 200
             if 'json' in parameters and parameters['json'][0] == '1':
                 type_content = "application/json"
                 contents = json.dumps(context)
@@ -360,7 +360,7 @@ class MyHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         parameters = parse_qs(parsed_url.query)
         print(f"Parameters: {parameters}")
 
-        code = HTTPStatus.OK
+        code = 200
         type_content = "text/html"
         if endpoint == "/":
             contents = read_html_file("index.html").render()
@@ -380,7 +380,7 @@ class MyHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             code, contents, type_content = geneList(parameters)
         else:
             contents = catch_error(endpoint, "Resource not available")
-            code = HTTPStatus.NOT_FOUND
+            code = 404
 
         self.send_response(code)
         self.send_header('Content-Type', type_content)
